@@ -24,7 +24,7 @@ public class PurchaseSweater {
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://prod-kurs.coderslab.pl/index.php");
+        driver.get("https://mystore-testlab.coderslab.pl/");
 
         WebElement signInButton = driver.findElement(By.xpath("//*[@id=\"_desktop_user_info\"]/div/a"));
         signInButton.click();
@@ -59,19 +59,35 @@ public class PurchaseSweater {
     }
 
     @And("selects the right quantity")
-    public void selectSweaterQuantity(){
+    public void selectSweaterQuantity() throws InterruptedException {
 
         WebElement selectSweaterQuantity = driver.findElement(By.id("quantity_wanted"));
         selectSweaterQuantity.clear();
         selectSweaterQuantity.sendKeys("5");
+        Thread.sleep(1000);
     }
 
     @And("adds the product to cart")
     public void addProductToCart(){
 
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        WebElement addProductToCart = driver.findElement(By.xpath("//*[@id=\"add-to-cart-or-refresh\"]/div[2]/div/div[2]/button"));
+        WebElement addProductToCart = driver.findElement(By.cssSelector("#add-to-cart-or-refresh > div.product-add-to-cart > div > div.add > button"));
         addProductToCart.click();
+    }
+
+    @And("proceeds to checkout")
+    public void proceedToCheckout(){
+
+        WebElement proceedToCheckout = driver.findElement(By.xpath("//*[@id=\"blockcart-modal\"]/div/div/div[2]/div/div[2]/div/div/a"));
+        proceedToCheckout.click();
+        WebElement proceedToCheckoutAgain = driver.findElement(By.xpath("//*[@id=\"main\"]/div/div[2]/div[1]/div[2]/div/a"));
+        proceedToCheckoutAgain.click();
+    }
+
+    @And("confirms address")
+    public void confirmAddress(){
+
+        WebElement confirmAddress = driver.findElement(By.name("confirm-addresses"));
+        confirmAddress.click();
     }
 
 }

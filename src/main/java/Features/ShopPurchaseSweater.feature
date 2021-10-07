@@ -14,7 +14,7 @@ Feature: Online shop purchase
 
     And adds the product to cart
 
-    And confirms checkout
+    And proceeds to checkout
 
     And confirms address
 
