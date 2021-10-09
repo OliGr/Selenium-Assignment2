@@ -2,13 +2,13 @@ package Steps;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class PurchaseSweater {
@@ -88,6 +88,31 @@ public class PurchaseSweater {
 
         WebElement confirmAddress = driver.findElement(By.name("confirm-addresses"));
         confirmAddress.click();
+    }
+
+    @And("selects delivery method")
+    public void selectDelivery(){
+
+        WebElement deliveryMethod = driver.findElement(By.name("confirmDeliveryOption"));
+        deliveryMethod.click();
+    }
+
+    @And("selects payment method and orders with an obligation to pay")
+    public void selectPayment(){
+
+        WebElement paymentMethod = driver.findElement(By.id("payment-option-1"));
+        paymentMethod.click();
+        WebElement termsAndConditions = driver.findElement(By.name("conditions_to_approve[terms-and-conditions]"));
+        termsAndConditions.click();
+        WebElement orderWithObligationToPay = driver.findElement(By.xpath("//*[@id=\"payment-confirmation\"]/div[1]/button"));
+        orderWithObligationToPay.click();
+
+    }
+
+    @Then("user takes a screenshot to confirm the purchase")
+    public void takeScreenshot(){
+        File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
     }
 
 }

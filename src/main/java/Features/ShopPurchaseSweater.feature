@@ -20,9 +20,7 @@ Feature: Online shop purchase
 
     And selects delivery method
 
-    And selects payment method
-
-    And selects "order with an obligation to pay"
+    And selects payment method and orders with an obligation to pay
 
     Then user takes a screenshot to confirm the purchase
 
