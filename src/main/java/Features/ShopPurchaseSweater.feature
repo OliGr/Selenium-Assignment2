@@ -25,6 +25,3 @@ Feature: Online shop purchase
     Then user takes a screenshot to confirm the purchase
 
     And user quits browsing
-
-
-

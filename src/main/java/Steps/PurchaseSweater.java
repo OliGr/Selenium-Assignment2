@@ -7,8 +7,10 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class PurchaseSweater {
@@ -110,9 +112,13 @@ public class PurchaseSweater {
     }
 
     @Then("user takes a screenshot to confirm the purchase")
-    public void takeScreenshot(){
-        File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
+    public void takeScreenshot() throws IOException {
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(screenshot, new File("C:\\Project\\TAM-FinalAssignment\\Selenium-Assignment2\\src\\main\\java\\Screenshots\\screenshot.png"));
     }
 
+    @And("user quits browsing")
+    public void shutDown(){
+        driver.quit();
+    }
 }
